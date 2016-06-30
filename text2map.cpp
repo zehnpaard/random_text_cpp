@@ -13,6 +13,7 @@ using std::cin;
 using std::endl;
 
 using std::vector;
+using std::pair;
 using std::map;
 using std::string;
 
@@ -46,13 +47,40 @@ vector<vector<string>> ngramify(vector<string> vs, int n) {
     return ngrams;
 }
 
-using freqmap = map<vector<string>, map<string, int>>;
+using m_str_int = map<string, int>;
+using freqmap = map<vector<string>, m_str_int>;
 
 freqmap make_freqmap(vector<vector<string>> vvs) {
     freqmap m;
     for (auto vs:vvs) {
         vector<string> vs1 {begin(vs), end(vs)-1};
         m[vs1][*(--end(vs))]++;
+    }
+    return m;
+}
+
+using cumfreq = vector<pair<int, string>>;
+
+cumfreq map2cumfreq(m_str_int m){
+    cumfreq v;
+    auto i = 0;
+    for (m_str_int::const_iterator it = begin(m);
+            it != end(m);
+            ++it) {
+        i += it->second;
+        v.push_back(pair<int, string>{i, it->first});
+    }
+    return v;
+}
+
+using cumfreqmap = map<vector<string>, cumfreq>;
+
+cumfreqmap make_cumfreqmap(freqmap freqm) {
+    cumfreqmap m;
+    for (freqmap::const_iterator it = begin(freqm);
+            it != end(freqm);
+            ++it) {
+        m[it->first] = map2cumfreq(it->second);
     }
     return m;
 }
