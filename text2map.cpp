@@ -84,3 +84,10 @@ cumfreqmap make_cumfreqmap(freqmap freqm) {
     }
     return m;
 }
+
+cumfreqmap str2cumfreqmap(string s) {
+    return make_cumfreqmap(
+        make_freqmap(
+            ngramify(
+                str2vec(s), 3)));
+}
