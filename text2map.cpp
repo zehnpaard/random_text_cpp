@@ -91,3 +91,8 @@ cumfreqmap str2cumfreqmap(string s) {
             ngramify(
                 str2vec(s), 3)));
 }
+
+// TODO
+// 1. Take a file name, load text file and convert to string
+// 2. Use cumulative frequency map to randomly pick one (n-1)gram
+// 3. Use cumulative frequency map to generate nth word given (n-1)gram
