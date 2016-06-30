@@ -59,7 +59,8 @@ freqmap ngrams2freqmap(vector<vector<string>> vvs) {
     freqmap m;
     for (auto ngram:vvs) {
         vector<string> n_1gram {begin(ngram), end(ngram)-1};
-        m[n_1gram][*(--end(ngram))]++;
+        string word {*(--end(ngram))};
+        m[n_1gram][word]++;
     }
     return m;
 }
